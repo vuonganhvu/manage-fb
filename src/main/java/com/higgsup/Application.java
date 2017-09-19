@@ -9,9 +9,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @SpringBootApplication
@@ -25,19 +27,14 @@ public class Application extends SpringBootServletInitializer {
     }
 
     public static void main(String[] args) {
+//        SpringApplication springApplication = new SpringApplication();
+//        ApplicationContext applicationContext = springApplication.run(Application.class,args);
         SpringApplication.run(Application.class, args);
     }
 
     @Bean
-    public WebMvcConfigurerAdapter webMvcConfigurerAdapter() {
-        return new WebMvcConfigurerAdapter() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedOrigins("*")
-                        .allowedMethods("GET", "POST","PUT", "DELETE","OPTIONS")  ;
-            }
-        };
+    public Appconfig webMvcConfigurerAdapter() {
+        return new Appconfig();
     }
 
     @Bean

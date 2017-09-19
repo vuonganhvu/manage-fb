@@ -2,6 +2,7 @@ package com.higgsup.app.controller;
 
 import com.higgsup.app.dto.AdDTO;
 import com.higgsup.app.service.AdService;
+import com.higgsup.app.service.TestService;
 import com.higgsup.common.CommonController;
 import com.higgsup.common.utils.ResponeComon;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ public class AdController extends CommonController {
 
     @Autowired
     AdService adService;
+    @Autowired
+    TestService testService;
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json")
     public ResponeComon<AdDTO> createAdCreative (@RequestBody @Valid final AdDTO adDTO) {
@@ -32,6 +35,14 @@ public class AdController extends CommonController {
         } catch (Exception e){
             responeComon.failedRespone(e.getMessage());
         }
+        return responeComon;
+    }
+
+    @RequestMapping(value = "/test", method = RequestMethod.POST, produces = "application/json")
+    public ResponeComon<String> test () {
+        ResponeComon<String> responeComon = new ResponeComon<String>();
+        testService.test();
+        responeComon.successfulRespone("dfdsf");
         return responeComon;
     }
 }
